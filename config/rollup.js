@@ -4,7 +4,7 @@ import typescript from "rollup-plugin-typescript2";
 import { terser } from "rollup-plugin-terser";
 
 const input = "./src/index.ts";
-const fileName = "globalpayments-3dsecure";
+const fileName = "globalpayments-3ds";
 const iifeName = "GlobalPayments.ThreeDSecure";
 
 const plugins = [
