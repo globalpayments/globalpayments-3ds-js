@@ -31,6 +31,19 @@ const onwarn = (warning) => {
 };
 
 export default [
+  // ES Module
+  {
+    input,
+    output: {
+      file: `./dist/${fileName}.esm.js`,
+      format: "esm",
+      name: iifeName,
+      sourcemap: true,
+    },
+
+    plugins,
+    onwarn,
+  },
   // Dev
   {
     input,
