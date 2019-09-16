@@ -82,8 +82,8 @@ function ensureIframeClosed(timeout: number) {
   }
 
   try {
-    document
-      .querySelectorAll(`[target$="-${randomId}"],[id$="-${randomId}"]`)
+    Array.prototype.slice.call(document
+        .querySelectorAll(`[target$="-${randomId}"],[id$="-${randomId}"]`))
       .forEach((element) => {
         if (element.parentNode) {
           element.parentNode.removeChild(element);
