@@ -9,6 +9,7 @@ import {
   AuthenticationRequestType,
   AuthenticationSource,
   ChallengeRequestIndicator,
+  TransactionStatus,
   colorDepth,
   messageCategoryFromAuthenticationRequestType,
 } from "./enums";
@@ -65,7 +66,7 @@ export async function checkVersion(
     )) as ICheckVersionResponseData;
 
     return await handle3dsVersionCheck(response, data.methodWindow);
-  } catch (e) {
+  } catch (e: any) {
     let reasons = [{ code: e.name, message: e.message }];
     if (e.reasons) {
       reasons = reasons.concat(e.reasons);
@@ -107,7 +108,7 @@ export async function initiateAuthentication(
     )) as IInitiateAuthenticationResponseData;
 
     return await handleInitiateAuthentication(response, data.challengeWindow);
-  } catch (e) {
+  } catch (e: any) {
     let reasons = [{ code: e.name, message: e.message }];
     if (e.reasons) {
       reasons = reasons.concat(e.reasons);
@@ -161,7 +162,10 @@ export async function handleInitiateAuthentication(
   data: IInitiateAuthenticationResponseData,
   options: IChallengeWindowOptions,
 ) {
-  if (data.challengeMandated) {
+  if (
+    data.challengeMandated ||
+    data.status === TransactionStatus.ChallengeRequired
+  ) {
     data.challenge = data.challenge || {};
 
     if (!data.challenge.requestUrl) {

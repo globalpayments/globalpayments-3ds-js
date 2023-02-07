@@ -35,7 +35,7 @@ export async function makeRequest(
     }
 
     return await rawResponse.json();
-  } catch (e) {
+  } catch (e: any) {
     let reasons = [{ code: e.name, message: e.message }];
     if (e.reasons) {
       reasons = reasons.concat(e.reasons);
