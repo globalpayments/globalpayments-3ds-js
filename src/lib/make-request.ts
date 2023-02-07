@@ -9,10 +9,13 @@ export interface IResponseData {}
 export async function makeRequest(
   endpoint: string,
   data: IRequestData,
+  headers?: any,
 ): Promise<IResponseData> {
-  const headers = {
-    "Content-Type": "application/json",
-  };
+  if (!headers) {
+    headers = {
+      "Content-Type": "application/json",
+    }
+  }
 
   try {
     const rawResponse = await fetch(endpoint, {

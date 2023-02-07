@@ -1,12 +1,13 @@
 {
   "name": "@chargepoint/globalpayments-3ds-js",
-  "version": "1.8.5-c",
+  "version": "1.8.6",
   "description": "Helper library for leveraging 3DSecure 2 for Strong Customer Authentication (SCA)",
   "main": "./dist/globalpayments-3ds.js",
   "module": "./dist/globalpayments-3ds.esm.js",
   "types": "./dist/types/index.d.ts",
   "author": "Heartland Developer Portal <developers@heartland.us>",
   "license": "GPL-2.0",
+  "repository":"https://github.com/chargepoint/globalpayments-3ds-js.git",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
