@@ -1,6 +1,6 @@
 {
-  "name": "globalpayments-3ds",
-  "version": "1.8.5-p2",
+  "name": "@chargepoint/globalpayments-3ds",
+  "version": "1.8.5-p1",
   "description": "Helper library for leveraging 3DSecure 2 for Strong Customer Authentication (SCA)",
   "main": "./dist/globalpayments-3ds.js",
   "module": "./dist/globalpayments-3ds.esm.js",
@@ -23,8 +23,7 @@
     "test": "cross-os cross-test",
     "test:lint": "tslint --project tsconfig.json",
     "test:acceptance": "testcafe 'chrome:headless' 'test/acceptance/**/test-*'",
-    "test:serve": "serve -p 7778",
-    "prepublish": "yarn build"
+    "test:serve": "serve -p 7778"
   },
   "cross-os": {
     "cross-prebuild": {
