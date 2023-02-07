@@ -1,7 +1,8 @@
 {
   "name": "globalpayments-3ds",
-  "version": "1.0.4",
+  "version": "1.8.5-p1",
   "description": "Helper library for leveraging 3DSecure 2 for Strong Customer Authentication (SCA)",
+  "type": "module",
   "main": "./dist/globalpayments-3ds.js",
   "module": "./dist/globalpayments-3ds.esm.js",
   "types": "./dist/types/index.d.ts",
@@ -9,31 +10,62 @@
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/globalpayments/globalpayments-3ds-js.git"
+    "url": "https://github.com/globalpayments/globalpayments-js.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "build": "rollup -c config/rollup.js",
-    "format": "prettier --write 'config/**/*' 'src/**/*' 'test/**/*' '!src/assets/**/*' '!test/run.sh' '!test/run.ps1' '!test/fixtures/**/*.html'",
-    "prebuild": "rimraf dist && $npm_execpath run test:lint",
-    "prepare": "$npm_execpath run build",
-    "test": "$npm_execpath run build && $npm_execpath run test:acceptance",
+    "clean": "rimraf dist",
+    "format": "prettier --write config/**/* src/**/* !src/assets/**/* !test/run.sh !test/run.ps1 !test/fixtures/**/*.html",
+    "prebuild": "cross-os cross-prebuild",
+    "prepare": "cross-os cross-prepare",
+    "test": "cross-os cross-test",
     "test:lint": "tslint --project tsconfig.json",
-    "test:acceptance": "testcafe 'chrome:headless' 'test/acceptance/**/test-*' --app 'http-server . -s'"
+    "test:acceptance": "testcafe 'chrome:headless' 'test/acceptance/**/test-*'",
+    "test:serve": "serve -p 7778",
+    "prepublish": "yarn build"
+  },
+  "cross-os": {
+    "cross-prebuild": {
+      "linux": "rimraf dist && $npm_execpath run test:lint",
+      "win32": "rimraf dist && node \"%npm_execpath%\" run test:lint"
+    },
+    "cross-prepare": {
+      "win32": "node \"%npm_execpath%\" run build",
+      "linux": "$npm_execpath run build"
+    },
+    "cross-test": {
+      "linux": "start-server-and-test '$npm_execpath run test:serve' http://localhost:7777 '$npm_execpath run test:acceptance'",
+      "win32": "start-server-and-test \"node %npm_execpath% run test:serve\" http://localhost:7777 \"node %npm_execpath% run test:acceptance\""
+    }
   },
   "dependencies": {
-    "globalpayments-lib": "^1.0.0"
+    "globalpayments-lib": "^1.8.5"
   },
   "devDependencies": {
-    "http-server": "^0.11.1",
-    "prettier": "^1.17.1",
-    "rimraf": "^2.6.3",
-    "rollup": "^1.11.3",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-node-resolve": "^4.2.4",
-    "rollup-plugin-terser": "^4.0.4",
-    "rollup-plugin-typescript2": "^0.21.0",
-    "testcafe": "^1.1.4",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
-  }
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@types/base64-js": "^1.3.0",
+    "@types/promise-polyfill": "^6.0.3",
+    "cross-os": "^1.4.0",
+    "cypress": "^6.0.0",
+    "cypress-axe": "^0.11.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.2.0",
+    "replace-in-file": "^6.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.33.3",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "serve": "^11.3.2",
+    "start-server-and-test": "^1.11.6",
+    "testcafe": "^1.9.4",
+    "tslint": "^6.1.3",
+    "typescript": "^4.1.2",
+    "web-component-analyzer": "^1.1.6"
+  },
+  "gitHead": "09776fcfe6140ce5b1ea8fc55fb4867b15565f1d"
 }
