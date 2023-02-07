@@ -1,6 +1,6 @@
 {
   "name": "@chargepoint/globalpayments-3ds",
-  "version": "1.8.5-p1",
+  "version": "1.8.5-a",
   "description": "Helper library for leveraging 3DSecure 2 for Strong Customer Authentication (SCA)",
   "main": "./dist/globalpayments-3ds.js",
   "module": "./dist/globalpayments-3ds.esm.js",
