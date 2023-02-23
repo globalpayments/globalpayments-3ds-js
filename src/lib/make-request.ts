@@ -20,7 +20,9 @@ export async function makeRequest(
   try {
     const rawResponse = await fetch(endpoint, {
       body: JSON.stringify(data),
-      credentials: "omit",
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: "include",
       headers: typeof Headers !== "undefined" ? new Headers(headers) : headers,
       method: "POST",
     });

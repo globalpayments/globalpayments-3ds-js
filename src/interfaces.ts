@@ -22,6 +22,8 @@ export interface IBrowserData {
   time: Date;
   timezoneOffset: number;
   userAgent: boolean | string;
+  acceptHeader?: string;
+  challengeWindowSize?: ChallengeWindowSize;
 }
 
 export interface IChallengeNotificationData {
@@ -35,10 +37,12 @@ export interface IChallengeNotificationData {
 
 export interface ICheckVersionRequestData extends IRequestData {
   accountId?: string;
-  card?: ICreditCardData;
+  cardNumber?: string;
   merchantId?: string;
   methodNotificationUrl?: string;
   methodWindow?: IChallengeWindowOptions;
+  authenticationSource?: AuthenticationSource;
+  currency?: string;
 }
 
 export interface ICheckVersionResponseData extends IResponseData {
@@ -65,12 +69,13 @@ export interface IChallengeWindowOptions {
 }
 
 export interface ICreditCardData {
-  cardHolderName?: string;
+  firstName?: string;
+  lastName?: string;
   customerReference?: string;
   cvn?: string;
-  expMonth?: string | number;
-  expYear?: string | number;
-  number?: string;
+  expirationMonth?: string | number;
+  expirationYear?: string | number;
+  cardNumber?: string;
   reference?: string;
 }
 
@@ -85,7 +90,7 @@ export interface IInitiateAuthenticationRequestData extends IRequestData {
   authenticationRequestType?: AuthenticationRequestType;
   authenticationSource?: AuthenticationSource;
   browserData: IBrowserData;
-  card?: ICreditCardData;
+  cardDetail?: ICreditCardData;
   challengeNotificationUrl?: string;
   challengeRequestIndicator?: ChallengeRequestIndicator;
   challengeWindow: IChallengeWindowOptions;
@@ -94,6 +99,33 @@ export interface IInitiateAuthenticationRequestData extends IRequestData {
   messageCategory?: MessageCategory;
   methodUrlComplete?: MethodUrlCompletion;
   serverTransactionId?: string;
+  order: {
+    amount: number;
+    currency: string;
+    shippingAddress: {
+      address1?: string;
+      address2?: string;
+      city?: string;
+      country: string;
+      state?: string;
+      zipCode: string
+    }
+  };
+  payer: {
+    billingAddress: {
+      address1?: string;
+      address2?: string;
+      city?: string;
+      country: string;
+      state?: string;
+      zipCode: string
+    };
+    email: string;
+    mobilePhone: {
+      countryCode: number;
+      subscriberNumber: string
+    }
+  };
 }
 
 export interface IInitiateAuthenticationResponseData extends IResponseData {
